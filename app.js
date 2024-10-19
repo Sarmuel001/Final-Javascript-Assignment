@@ -41,12 +41,14 @@ function displayMovies(movies, containerId) {
       const imgMovie = document.createElement('img');
       imgMovie.classList.add('image-container');
       imgMovie.src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+      imgMovie.alt=`${movie.title}`;
 
       const movieElement = document.createElement('div');
       movieElement.classList.add('movie');
       movieElement.innerHTML = `
           <button onclick="addToWatchlist('${movie.title}')">Add to Watchlist</button>
-          <button onclick="Stream('${movie.poster_path}')">Stream</button>
+          <button onclick=""><a href='${`https://video.tmdb.org/t/p/w500${movie.backdrop_path}`}'> Stream</a></button>
+    
       `;
         movieElement.appendChild(imgMovie)
         container.append(movieElement);
@@ -61,6 +63,7 @@ function addToWatchlist(movieTitle) {
         watchlist.push(movieTitle);
         localStorage.setItem('watchlist', JSON.stringify(watchlist));
         console.log('Watchlist updated:', watchlist); 
+        alert('Movie Successfully added to Watchlist!!!')
         displayWatchlist();
     } else {
        alert('Movie Already in Watchlist!!!')
@@ -78,11 +81,13 @@ function displayWatchlist() {
         movieElement.classList.add('movie');
         movieElement.innerHTML = `
             <h3>${movieTitle}</h3>
+            
             <button onclick="removeFromWatchlist('${movieTitle}')">Remove</button>
         `;
-
-        container.appendChild(movieElement);        
+        container.appendChild(movieElement);   
+             
     });
+    
 }
 
 // Remove movie from watchlist
