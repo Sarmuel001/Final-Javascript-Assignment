@@ -75,7 +75,15 @@ main {
   padding: 1rem;
   border-radius: 8px;
   text-align: center;
+  
 }
+.movie-grid .movie a {
+ text-decoration: none;
+ color: #fff;
+}
+.movie-grid .movie a:hover {
+  color: #1a0101;
+ }
 .movie-grid .movie:hover {
   transform: scale(120%);
   transition: visibility 0s, 0.5s;
@@ -133,4 +141,24 @@ footer {
   width: 100%;
   bottom: 0;
   line-height: 1.4rem;
+}
+
+.spinner  h1 {  
+  margin:200px 600px;      
+  animation: spin 3s linear infinite;
+  color: #1a0101;
+}
+
+@keyframes spin {
+  
+  100% {
+      transform:scale(2.2);
+  }
+  
+}
+
+
+
+@media (max-width:785) {
+  
 }
