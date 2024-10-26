@@ -1,24 +1,47 @@
-
 //URLs
 const API_KEY = '8d85e791b741b0217b3ac82182b8803a'; 
 const TRENDING_API_URL = `https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`;
 const SEARCH_API_URL = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=`;
+const GENRE_API_URL = `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}`;
+
+// Global variables
+let allMovies = [];
+let genres = {};
+// Fetch genres
+async function fetchGenres() {
+    try {
+        const response = await fetch(GENRE_API_URL);
+        const data = await response.json();
+        data.genres.forEach(genre => {
+            genres[genre.id] = genre.name;
+        });
+    } catch (error) {
+        console.error('Error fetching genres:', error);
+        // alert("Error fetching genres");
+    }
+}
+
 
 // Fetch trending movies
 async function fetchTrendingMovies() {
+    showLoading();
     try {
         const response = await fetch(TRENDING_API_URL);
         const data = await response.json();
-        displayMovies(data.results, 'trending-movies');
-        console.log(data.results)
+        allMovies = data.results;
+        displayMovies(allMovies, 'trending-movies');
+        console.log(data.results);
     } catch (error) {
         console.error('Error fetching trending movies:', error);
         displayError('trending-movies');
+    } finally {
+        hideLoading();
     }
 }
 
 // Search for movies
 async function searchMovies(query) {
+    showLoading();
     try {
         const response = await fetch(`${SEARCH_API_URL}${query}`);
         const data = await response.json();
@@ -26,6 +49,8 @@ async function searchMovies(query) {
     } catch (error) {
         console.error('Error searching for movies:', error);
         displayError('trending-movies');
+    }finally {
+        hideLoading();
     }
 }
 
@@ -101,7 +126,8 @@ function displayError(containerId) {
 }
 
 // Initialize
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    await fetchGenres();
     fetchTrendingMovies();
     displayWatchlist();
 
@@ -113,21 +139,45 @@ document.addEventListener('DOMContentLoaded', () => {
             searchMovies(query);
         } else {
             fetchTrendingMovies();
+            
         }
     });
 });
 
+//Page
+// documentonreadystation() {
+//     if (document.readyState !== "complete") {
+//         document.querySelector(
+//           "body").style.visibility = "hidden";
+//         document.querySelector(
+//           "#spinner").style.visibility = "visible";
+//     } else {
+//         document.querySelector(
+//           "#spinner").style.display = "none";
+//         document.querySelector(
+//           "body").style.visibility = "visible";
+//     }
+// };
 
-document.onreadystatechange = function() {
-    if (document.readyState !== "complete") {
-        document.querySelector(
-          "body").style.visibility = "hidden";
-        document.querySelector(
-          "#spinner").style.visibility = "visible";
-    } else {
-        document.querySelector(
-          "#spinner").style.display = "none";
-        document.querySelector(
-          "body").style.visibility = "visible";
-    }
-};
+// Display error message
+function displayError(containerId) {
+    const container = document.getElementById(containerId);
+    container.innerHTML = '<p>Failed to load data. Please try again later.</p>';
+}
+
+// Show loading indicator
+function showLoading() {
+    document.getElementById('loading').style.display = 'block';
+}
+
+// Hide loading indicator
+function hideLoading() {
+    document.getElementById('loading').style.display = 'none';
+}
+
+function filterByGenre(genreName) {
+    const genreId = Object.keys(genres).find(key => genres[key] === genreName);
+    const filteredMovies = allMovies.filter(movie => movie.genre_ids.includes(parseInt(genreId)));
+    displayMovies(filteredMovies, 'trending-movies');
+ 
+}

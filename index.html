@@ -8,40 +8,65 @@
     <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body >
-
-    
     <header>
         <h1>Movie Mania</h1>
+        <input type="checkbox" name="nav-toggle" id="toggle" class="nav-toggle">
+        <label for="toggle" class="nav-toggle-label">
+            <span></span>
+            <p>X</p> 
+        </label>
         <nav>
             <ul>
-                <li><a href="/index.html">Home</a></li>
-                <li><a href="#trending">Trending</a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#trending" id="genre">Trending</a>   
+                </li>
                 <li><a href="watchlist.html" id="watchlist">Watchlist</a></li>
-                <li><button></button></a></li>
+                <!-- <li><button></button></a></li> -->
+                  <div class="dropdown">
+                    <button class="dropbtn">Genres
+                      <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <button onclick="filterByGenre('Action')">Action</button>
+                        <button onclick="filterByGenre('Drama')">Drama</button>
+                        <button onclick="filterByGenre('Comedy')">Comedy</button>
+                    </div>
+                  </div>
+                  
             </ul>
         </nav>
         <div class="search-bar">
             <input type="text" id="search" placeholder="Search for movies...">
         </div>
     </header>
+ 
+<br><br>
     <main>
-        <div class="spinner" id="spinner"><h1>Movie Mania</h1></div>
-        <section id="home">
+        <div id="loading" class="loading">Loading...</div>
+        <section class="home">
             <h2>Trending Movies</h2>
             <div id="trending-movies" class="movie-grid"></div>
         </section>
+        
+        <!-- 
+        uncompleted section, sam make sure you complete this
+        <section id="Newhome">
+            <h2>Genre</h2>
+            <div id="" class="movie-grid"></div>
+        </section> -->
+        
         <section >
             <h2>Your Watchlist</h2>
             <div id="watchlist-movies"></div>
         </section>
     </main>
+
     <footer>
         <p>© 2024 Movie Mania</p>
-        <p>Designed by Adebayo Sunday Samuel </p>
-        <p>CapacityBay Cohort4 Student</p>
-
-        
+        <p>Designed by Adebayo Sunday Samuel</p>
+        <p>CapacityBay Cohort4 Student</p> 
     </footer>
+
     <script src="app.js"></script>
 </body>
 </html>
