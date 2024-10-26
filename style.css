@@ -30,9 +30,20 @@ header {
   align-items: center;
   z-index: 1;
 }
+header a{
+  text-decoration: none;
+}
 
-header h1 {
+header a h1 {
   margin: 0;
+  text-decoration:none;
+  color: #fff;
+}
+header a h1:hover {
+  margin: 0;
+  text-decoration:none;
+  color: #fff;
+  transition: visibility 0s, 0.5s;
 }
 
 nav ul {
@@ -390,13 +401,24 @@ header > a{
    background-color: #1a0101;
 
 }
-header h1{
+
+header a{
+  display:inline;
+  text-decoration: none;
+}
+
+header a h1{
   width: 50px;
   font-size:0.9rem ;
   margin-left: 10px;
 }
 
-
+header a h1:hover {
+  margin: 0;
+  text-decoration:none;
+  color: #fff;
+  transition: visibility 0s, 0.5s;
+}
   .search-bar{
     width: 100%;
     margin: auto 10px;
