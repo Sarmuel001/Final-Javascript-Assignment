@@ -17,7 +17,7 @@ async function fetchGenres() {
         });
     } catch (error) {
         console.error('Error fetching genres:', error);
-        // alert("Error fetching genres");
+        alert("Error fetching genres");
     }
 }
 
